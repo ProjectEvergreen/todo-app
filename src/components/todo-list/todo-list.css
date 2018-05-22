@@ -4,4 +4,8 @@
     text-align: left;
     padding-left: 10px;
   }
+
+  & span {
+    font-size: .5em
+  }
 }
