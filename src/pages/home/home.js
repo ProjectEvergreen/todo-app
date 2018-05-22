@@ -2,23 +2,17 @@ import { html, render } from 'lit-html';
 import ValidationService from '../../services/validation';
 import css from './home.css';
 
-// TODO
-// 1. Get value from input - done
-// 2. push to `todos` array - done
-// 3. render the todo's array
-// 4. delete a todo
-// 5. mark a todo as completed
-// 6. display completed
 class Home extends HTMLElement {
   constructor() {
     super();
 
     this.todos = [];
 
+    // setup the component's template
     this.root = this.attachShadow({ mode: 'closed' });    
     render(this.template(), this.root);
     
-    // events added after render
+    // setup events (after render)
     this.root.getElementById('add-btn').addEventListener('click', this.addNewTodo.bind(this));
   }
 
