@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+
+  & .header-text {
+    margin: 0 auto;
+  }
+}
