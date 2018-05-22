@@ -1,4 +1,5 @@
 import { html, render } from 'lit-html';
+import ValidationService from '../../services/validation';
 import css from './home.css';
 
 // TODO
@@ -24,7 +25,7 @@ class Home extends HTMLElement {
   addNewTodo() {
     const newTodoValue = this.root.getElementById('new-todo').value;
 
-    if (newTodoValue && newTodoValue !== '') {
+    if (ValidationService.isValidateTextInput(newTodoValue)) {
       this.todos.push({
         completed: false,
         task: newTodoValue
