@@ -1,20 +1,19 @@
 import { html, render } from 'lit-html';
 import ValidationService from '../../services/validation';
-import '../todo-item/todo-item';
 import css from './todo-list.css';
 
 class TodoList extends HTMLElement {
   
   constructor() {
     super();
-    
+
     // TODO document true private properties
     this.todos = [];
     this.root = this.attachShadow({ mode: 'closed' });
 
     render(this.template(), this.root);
-
-    // setup event handlers after render
+    
+    // setup "static" event handlers after render
     this.root.getElementById('add-todo').addEventListener('click', this.addTodo.bind(this));
   }
 
@@ -30,32 +29,56 @@ class TodoList extends HTMLElement {
       });
 
       this.root.getElementById('todo-input').value = '';
-
-      render(this.template(), this.root);
+      this.onStateUpdated();
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
   }
 
-  // deleteTodo() {
-  //   console.log('deleteTodo todo'); // eslint-disable-line
-  // }
+  deleteTodo(todoId) {    
+    this.todos = this.todos.filter((todo) => {
+      return todo.id !== todoId;
+    });
 
-  // completeTodo() {
-  //   console.log('completeTodo'); // eslint-disable-line
-  // }
+    this.onStateUpdated();
+  }
+
+  completeTodo(todo) {
+    console.log('completeTodo from TodoList', todo); // eslint-disable-line
+  }
+
+  // dynamic event handlers, redraw, etc
+  // TODO performance, memory leakage?
+  onStateUpdated() {
+    render(this.template(), this.root);
+
+    const deleteButtons = this.root.querySelectorAll('.delete-todo');
+    const completeButtons = this.root.querySelectorAll('.complete-todo');
+
+    for (let i = 0, l = deleteButtons.length; i < l; i += 1) {
+      const idx = i;
+      const todoId = this.todos[i].id;
+
+      deleteButtons[idx].addEventListener('click', () => {
+        this.deleteTodo(todoId);
+      });
+
+      completeButtons[idx].addEventListener('change', () => {
+        this.compeleteTodo(todoId);
+      });
+    }
+  }
 
   renderTodoListItems() {
     return this.todos.map((todo) => {
-      const serializedTodo = JSON.stringify(todo);
-
+ 
       return html`
         <li>
-          <pe-todo-item 
-            todo=${serializedTodo}
-            deletedCallback=this.deleteTodo
-            completedCallback=this.completeTodo>
-          </pr-todo-item>
+          ${todo.task}
+
+          <input class="complete-todo" type="checkbox"/>
+              
+          <span class="delete-todo">X</span>
         </li>
       `;
 
