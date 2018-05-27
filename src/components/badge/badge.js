@@ -1,4 +1,4 @@
-import { html, render } from 'lit-html';
+import { html, render } from 'lit-html/lib/lit-extended';
 import css from './badge.css';
 
 class Badge extends HTMLElement {
@@ -37,7 +37,7 @@ class Badge extends HTMLElement {
         ${css}
       </style>
 
-      <span class=${this._condition}>${ this._counter }</span>
+      <span class$=${this._condition}>${ this._counter }</span>
     `;
   }
 }
