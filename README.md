@@ -22,3 +22,6 @@ Tasks to get you going working on this project:
 
 ### Misc
 - Visual Studio Code has [an extenstion to support lit-html](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
+
+1. Data binding?
+1. CSS variables
