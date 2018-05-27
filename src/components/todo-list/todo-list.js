@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html/lib/lit-extended';
 import ValidationService from '../../services/validation';
+import '../badge/badge';
 import css from './todo-list.css';
 
 class TodoList extends HTMLElement {
@@ -27,8 +28,7 @@ class TodoList extends HTMLElement {
         created: now
       });
 
-      inputElement.value = '';
-      render(this.template(), this.root);
+      this.refreshTemplate();
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
@@ -39,7 +39,7 @@ class TodoList extends HTMLElement {
       return todo.id !== parseInt(todoId, 10);
     });
 
-    render(this.template(), this.root);
+    this.refreshTemplate();
   }
 
   completeTodo(todoId) {
@@ -49,10 +49,23 @@ class TodoList extends HTMLElement {
       return todo;
     });
 
+    this.refreshTemplate();
+  }
+
+  // TODO is there a way to implement this with data-binding
+  // instead of manually manipulating DOM elements just to set their values?
+  refreshTemplate() {
+    const completedTodos = this.todos.filter((todo) => { return todo.completed; });
+    const allTodosCompleted = completedTodos.length === this.todos.length;
+    const badgeComponent = this.root.querySelector('pe-badge');
+
+    badgeComponent.setAttribute('counter', completedTodos.length);
+    badgeComponent.setAttribute('condition', allTodosCompleted);
+    this.root.getElementById('todo-input').value = '';
+
     render(this.template(), this.root);
   }
 
-  // sync checkbox `checked` to value of `todo.completed`
   renderTodoListItems() {
     return this.todos.map((todo) => {
       const completionStatus = todo.completed ? '✅' : '⛔';
@@ -69,7 +82,9 @@ class TodoList extends HTMLElement {
 
     });
   }
-
+  
+  // TODO auto submit on enter keypress
+  // TODO sync checkbox `checked` to value of `todo.completed`
   template() {
     return html`
       <style>
@@ -79,6 +94,7 @@ class TodoList extends HTMLElement {
       <div>
         <h3>My Todo List 📝</h3>
 
+        <h5>Completed Todos:<pe-badge counter></pe-badge></h5>
         <input id="todo-input" type="text" placeholder="Food Shopping" required/>
         <button id="add-todo" onclick=${ this.addTodo.bind(this) }>+ Add</button>
 
