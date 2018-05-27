@@ -64,15 +64,19 @@ class TodoList extends HTMLElement {
     render(this.template(), this.root);
   }
 
+  // TODO create a todo-list-item component with callback support
   renderTodoListItems() {
     return this.todos.map((todo) => {
-      const completionStatus = todo.completed ? '✅' : '⛔';
+      const isCompleted = todo.completed;
+      const completionStatus = isCompleted ? '✅' : '⛔';
 
+      // CSS Grid here?
       return html`
         <li>
           ${todo.task}
 
-          <input class="complete-todo" type="checkbox" onchange=${() => { this.completeTodo(todo.id); }} /><span>${completionStatus}</span>
+          <input class="complete-todo" type="checkbox" checked=${isCompleted} onchange=${() => { this.completeTodo(todo.id); }} />
+          <span>${completionStatus}</span>
               
           <span class="delete-todo" onclick=${() => { this.deleteTodo(todo.id); }}>X</span>
         </li>
@@ -82,7 +86,6 @@ class TodoList extends HTMLElement {
   }
   
   // TODO auto submit on enter keypress
-  // TODO sync checkbox `checked` to value of `todo.completed`
   // TODO repeat directive?
   // TODO data binding for things counter and the users input value (e.g. to be able to deprecate `refreshTemplate`) 
   template() {
