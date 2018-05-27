@@ -1,6 +1,7 @@
 import { html, render } from 'lit-html/lib/lit-extended';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
+import '../todo-list-item/todo-list-item';
 import css from './todo-list.css';
 
 class TodoList extends HTMLElement {
@@ -10,6 +11,9 @@ class TodoList extends HTMLElement {
 
     this.todos = [];
     this.root = this.attachShadow({ mode: 'closed' });
+
+    document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
+    document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
 
     render(this.template(), this.root);
   }
@@ -53,6 +57,7 @@ class TodoList extends HTMLElement {
     this.refreshTemplate();
   }
 
+  // TODO "better" data binding for things like counter and the user's input value (e.g. so as to be able to deprecate this function) 
   refreshTemplate() {
     const completedTodos = this.todos.filter((todo) => { return todo.completed; });
     const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === this.todos.length;
@@ -66,29 +71,14 @@ class TodoList extends HTMLElement {
     render(this.template(), this.root);
   }
 
-  // TODO create a todo-list-item component with callback support
   renderTodoListItems() {
     return this.todos.map((todo) => {
-      const isCompleted = todo.completed;
-      const completionStatus = isCompleted ? '✅' : '⛔';
-
-      // CSS Grid here?
-      return html`
-        <li>
-          ${todo.task}
-
-          <input class="complete-todo" type="checkbox" checked=${isCompleted} onchange=${() => { this.completeTodo(todo.id); }} />
-          <span>${completionStatus}</span>
-              
-          <span class="delete-todo" onclick=${() => { this.deleteTodo(todo.id); }}>X</span>
-        </li>
+      return html` 
+        <li><pe-todo-list-item todo$=${ JSON.stringify(todo) }></pe-todo-list-item></li>
       `;
-
     });
   }
-  
-  // TODO repeat directive?
-  // TODO data binding for things like counter and the users input value (e.g. so as to be able to deprecate `refreshTemplate`) 
+
   template() {
     return html`
       <style>
@@ -96,9 +86,9 @@ class TodoList extends HTMLElement {
       </style>
       
       <div>
-        <h3>My Todo List 📝</h3>
+        <h3><u>My Todo List 📝</u></h3>
 
-        <h5>Completed Todos:<pe-badge counter$=${this.completedTodos}></pe-badge></h5>
+        <h5>Completed Todos:<pe-badge counter=${this.completedTodos}></pe-badge></h5>
         
         <form onsubmit=${ this.addTodo.bind(this) }>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
