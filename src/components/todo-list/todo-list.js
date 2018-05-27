@@ -13,10 +13,9 @@ class TodoList extends HTMLElement {
 
     render(this.template(), this.root);
   }
-
+  
   addTodo() {
-    const inputElement = this.root.getElementById('todo-input');
-    const newTodoValue = inputElement.value;
+    const newTodoValue = this.root.getElementById('todo-input').value;
 
     if (ValidationService.isValidateTextInput(newTodoValue)) {
       const now = new Date().getTime();
@@ -52,16 +51,15 @@ class TodoList extends HTMLElement {
     this.refreshTemplate();
   }
 
-  // TODO is there a way to implement this with data-binding
-  // instead of manually manipulating DOM elements just to set their values?
   refreshTemplate() {
     const completedTodos = this.todos.filter((todo) => { return todo.completed; });
-    const allTodosCompleted = completedTodos.length === this.todos.length;
+    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === this.todos.length;
     const badgeComponent = this.root.querySelector('pe-badge');
+    const todoInputElement = this.root.getElementById('todo-input');
 
     badgeComponent.setAttribute('counter', completedTodos.length);
     badgeComponent.setAttribute('condition', allTodosCompleted);
-    this.root.getElementById('todo-input').value = '';
+    todoInputElement.value = '';
 
     render(this.template(), this.root);
   }
@@ -85,6 +83,8 @@ class TodoList extends HTMLElement {
   
   // TODO auto submit on enter keypress
   // TODO sync checkbox `checked` to value of `todo.completed`
+  // TODO repeat directive?
+  // TODO data binding for things counter and the users input value (e.g. to be able to deprecate `refreshTemplate`) 
   template() {
     return html`
       <style>
@@ -94,7 +94,8 @@ class TodoList extends HTMLElement {
       <div>
         <h3>My Todo List 📝</h3>
 
-        <h5>Completed Todos:<pe-badge counter></pe-badge></h5>
+        <h5>Completed Todos:<pe-badge counter$=${this.completedTodos}></pe-badge></h5>
+        
         <input id="todo-input" type="text" placeholder="Food Shopping" required/>
         <button id="add-todo" onclick=${ this.addTodo.bind(this) }>+ Add</button>
 
