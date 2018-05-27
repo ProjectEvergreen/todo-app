@@ -21,11 +21,13 @@ class TodoList extends HTMLElement {
     const newTodoValue = this.root.getElementById('todo-input').value;
 
     if (ValidationService.isValidateTextInput(newTodoValue)) {
+      const now = new Date().getTime();
+
       this.todos.push({
         completed: false,
         task: newTodoValue,
-        id: this.todos.length,
-        created: new Date().getTime()
+        id: now,
+        created: now
       });
 
       this.root.getElementById('todo-input').value = '';
@@ -37,48 +39,54 @@ class TodoList extends HTMLElement {
 
   deleteTodo(todoId) {    
     this.todos = this.todos.filter((todo) => {
-      return todo.id !== todoId;
+      return todo.id !== parseInt(todoId, 10);
     });
 
     this.onStateUpdated();
   }
 
-  completeTodo(todo) {
-    console.log('completeTodo from TodoList', todo); // eslint-disable-line
+  completeTodo(todoId) {
+    this.todos = this.todos.map((todo) => {
+      todo.completed = todo.id === parseInt(todoId, 10) ? !todo.completed : todo.completed;
+
+      return todo;
+    });
+
+    this.onStateUpdated();
   }
 
-  // dynamic event handlers, redraw, etc
-  // TODO performance, memory leakage?
   onStateUpdated() {
+    // in this case, render our list first before attaching event handlers
+    // TODO considerations for performance, memory leakage?  Maybe something lit-html can help with (managing dynamic events)?
     render(this.template(), this.root);
 
     const deleteButtons = this.root.querySelectorAll('.delete-todo');
     const completeButtons = this.root.querySelectorAll('.complete-todo');
 
-    for (let i = 0, l = deleteButtons.length; i < l; i += 1) {
-      const idx = i;
-      const todoId = this.todos[i].id;
+    deleteButtons.forEach((button) => {
+      button.onclick = () => {
+        this.deleteTodo(button.getAttribute('todoid'));
+      };
+    });
 
-      deleteButtons[idx].addEventListener('click', () => {
-        this.deleteTodo(todoId);
-      });
-
-      completeButtons[idx].addEventListener('change', () => {
-        this.compeleteTodo(todoId);
-      });
-    }
+    completeButtons.forEach((button) => {
+      button.onchange = () => {
+        this.completeTodo(button.getAttribute('todoid'));
+      };
+    });
   }
 
   renderTodoListItems() {
     return this.todos.map((todo) => {
+      const isCompletedStatus = todo.completed ? '✅' : '⛔';
  
       return html`
         <li>
           ${todo.task}
 
-          <input class="complete-todo" type="checkbox"/>
+          <input class="complete-todo" type="checkbox" todoId="${todo.id}"/><span>${isCompletedStatus}</span>
               
-          <span class="delete-todo">X</span>
+          <span class="delete-todo" todoId="${todo.id}">X</span>
         </li>
       `;
 
