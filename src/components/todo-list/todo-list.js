@@ -31,6 +31,8 @@ class TodoList extends HTMLElement {
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
+
+    return false;
   }
 
   deleteTodo(todoId) {    
@@ -85,9 +87,8 @@ class TodoList extends HTMLElement {
     });
   }
   
-  // TODO auto submit on enter keypress
   // TODO repeat directive?
-  // TODO data binding for things counter and the users input value (e.g. to be able to deprecate `refreshTemplate`) 
+  // TODO data binding for things like counter and the users input value (e.g. so as to be able to deprecate `refreshTemplate`) 
   template() {
     return html`
       <style>
@@ -99,8 +100,10 @@ class TodoList extends HTMLElement {
 
         <h5>Completed Todos:<pe-badge counter$=${this.completedTodos}></pe-badge></h5>
         
-        <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-        <button id="add-todo" onclick=${ this.addTodo.bind(this) }>+ Add</button>
+        <form onsubmit=${ this.addTodo.bind(this) }>
+          <input id="todo-input" type="text" placeholder="Food Shopping" required/>
+          <button id="add-todo" type="submit">+ Add</button>
+        </form>
 
         <ol>
           ${ this.renderTodoListItems() }
