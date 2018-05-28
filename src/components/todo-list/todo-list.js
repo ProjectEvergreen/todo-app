@@ -1,5 +1,6 @@
 import { html, render } from 'lit-html/lib/lit-extended';
 import { repeat } from '../../../node_modules/lit-html/lib/repeat';
+// import { toggle } from '../../../node_modules/lit-html/lib/toggle';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
 import '../todo-list-item/todo-list-item';
@@ -32,7 +33,7 @@ class TodoList extends HTMLElement {
         created: now
       });
 
-      // TODO possible to data bind on this <input> element instead?
+      // TODO possible to data bind on this <input> element value attribute instead?
       this.root.getElementById('todo-input').value = '';
       render(this.template(), this.root);
     } else {

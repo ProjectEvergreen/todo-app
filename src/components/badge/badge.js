@@ -7,6 +7,7 @@ class Badge extends HTMLElement {
     
     this.root = this.attachShadow({ mode: 'closed' });
     this._counter = 0;
+    this._condition = 'unmet';
 
     render(this.template(), this.root);
   }
@@ -15,11 +16,11 @@ class Badge extends HTMLElement {
     return ['counter', 'condition'];
   }
 
-  attributeChangedCallback(name, oldVal, newVal = []) {
+  attributeChangedCallback(name, oldVal, newVal) {
     switch (name) {
 
       case 'counter':
-        this._counter = newVal ? parseInt(newVal, 10) : 0;
+        this._counter = parseInt(newVal, 10) || 0;
         break;
       case 'condition':
         this._condition = newVal === 'true' ? 'met' : 'unmet';
@@ -37,7 +38,7 @@ class Badge extends HTMLElement {
         ${css}
       </style>
 
-      <span class$=${this._condition}>${ this._counter }</span>
+      <span class$=${ this._condition }>${ this._counter }</span>
     `;
   }
 }
