@@ -11,6 +11,8 @@ class TodoList extends HTMLElement {
     super();
 
     this.todos = [];
+    this.completedTodos = 0;
+    this.allTodosCompleted = false;
     this.root = this.attachShadow({ mode: 'closed' });
 
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
@@ -18,7 +20,7 @@ class TodoList extends HTMLElement {
 
     render(this.template(), this.root);
   }
-  
+
   addTodo() {
     const newTodoValue = this.root.getElementById('todo-input').value;
 
@@ -32,7 +34,9 @@ class TodoList extends HTMLElement {
         created: now
       });
 
-      this.refreshTemplate();
+      // TODO possible to data bind on this <input> element instead?
+      this.root.getElementById('todo-input').value = '';
+      render(this.template(), this.root);
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
@@ -45,7 +49,7 @@ class TodoList extends HTMLElement {
       return todo.id !== parseInt(todoId, 10);
     });
 
-    this.refreshTemplate();
+    render(this.template(), this.root);
   }
 
   completeTodo(todoId) {
@@ -55,24 +59,13 @@ class TodoList extends HTMLElement {
       return todo;
     });
 
-    this.refreshTemplate();
-  }
-
-  // TODO "better" data binding for things like counter and the user's input value (e.g. so as to be able to deprecate this function) 
-  refreshTemplate() {
-    const completedTodos = this.todos.filter((todo) => { return todo.completed; });
-    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === this.todos.length;
-    const badgeComponent = this.root.querySelector('pe-badge');
-    const todoInputElement = this.root.getElementById('todo-input');
-
-    badgeComponent.setAttribute('counter', completedTodos.length);
-    badgeComponent.setAttribute('condition', allTodosCompleted);
-    todoInputElement.value = '';
-
     render(this.template(), this.root);
   }
 
   template() {
+    this.completedTodos = this.todos.filter((todo) => { return todo.completed; });
+    this.allTodosCompleted = this.completedTodos.length !== 0 && this.completedTodos.length === this.todos.length;
+
     return html`
       <style>
         ${css}
@@ -81,7 +74,8 @@ class TodoList extends HTMLElement {
       <div>
         <h3><u>My Todo List 📝</u></h3>
 
-        <h5>Completed Todos:<pe-badge counter=${this.completedTodos}></pe-badge></h5>
+        <h5>Completed Todos:<pe-badge counter$=${this.completedTodos.length} 
+                                      condition$=${this.allTodosCompleted}></pe-badge></h5>
         
         <form onsubmit=${ this.addTodo.bind(this) }>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
