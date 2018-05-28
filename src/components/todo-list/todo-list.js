@@ -12,7 +12,6 @@ class TodoList extends HTMLElement {
 
     this.todos = [];
     this.root = this.attachShadow({ mode: 'closed' });
-    this.userInputElement = this.root.getElementById('todo-input');
 
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
@@ -21,19 +20,19 @@ class TodoList extends HTMLElement {
   }
 
   addTodo() {
-    const inputElement = this.root.getElementById('todo-input');
+    const userInput = this.root.getElementById('todo-input').value;
 
-    if (ValidationService.isValidTextInput(inputElement.value)) {
+    if (ValidationService.isValidTextInput(userInput)) {
       const now = new Date().getTime();
 
       this.todos.push({
         completed: false,
-        task: newTodoValue,
+        task: userInput,
         id: now,
         created: now
       });
 
-      inputElement.value = '';
+      this.root.getElementById('todo-input').value = '';
       render(this.template(), this.root);
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
