@@ -12,6 +12,7 @@ class TodoList extends HTMLElement {
 
     this.todos = [];
     this.root = this.attachShadow({ mode: 'closed' });
+    this.userInputElement = this.root.getElementById('todo-input');
 
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
@@ -20,9 +21,9 @@ class TodoList extends HTMLElement {
   }
 
   addTodo() {
-    const newTodoValue = this.root.getElementById('todo-input').value;
+    const inputElement = this.root.getElementById('todo-input');
 
-    if (ValidationService.isValidTextInput(newTodoValue)) {
+    if (ValidationService.isValidTextInput(inputElement.value)) {
       const now = new Date().getTime();
 
       this.todos.push({
@@ -32,8 +33,7 @@ class TodoList extends HTMLElement {
         created: now
       });
 
-      // TODO possible to data bind on this <input> element value attribute instead?
-      this.root.getElementById('todo-input').value = '';
+      inputElement.value = '';
       render(this.template(), this.root);
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line

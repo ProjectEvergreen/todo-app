@@ -44,7 +44,6 @@ class TodoListItem extends HTMLElement {
     const isCompleted = this._todo.completed;
     const completionStatus = isCompleted ? '✅' : '⛔';
 
-    // CSS Grid here?
     return html` 
       <style>
         ${css}
