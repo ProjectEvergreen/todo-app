@@ -20,7 +20,8 @@ class TodoList extends HTMLElement {
   }
 
   addTodo() {
-    const userInput = this.root.getElementById('todo-input').value;
+    const inputElement = this.root.getElementById('todo-input');
+    const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
       const now = new Date().getTime();
@@ -32,13 +33,11 @@ class TodoList extends HTMLElement {
         created: now
       });
 
-      this.root.getElementById('todo-input').value = '';
+      inputElement.value = '';
       render(this.template(), this.root);
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
-
-    return false;
   }
 
   deleteTodo(todoId) {    
@@ -74,7 +73,7 @@ class TodoList extends HTMLElement {
         <h5>Completed Todos:<pe-badge counter$=${completedTodos.length} 
                                       condition$=${allTodosCompleted}></pe-badge></h5>
         
-        <form onsubmit=${ this.addTodo.bind(this) }>
+        <form onsubmit=${() => { this.addTodo(); return false; }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
           <button id="add-todo" type="submit">+ Add</button>
         </form>
