@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rimraf ./build && webpack --config webpack.config.prod.js",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
-    "serve": "yarn build && cd build && http-server"
+    "serve": "yarn build && cd build && http-server -o"
   },
   "dependencies": {
     "lit-html": "^0.10.0"
