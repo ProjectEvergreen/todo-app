@@ -1,6 +1,6 @@
 class ValidationService {
   
-  static isValidateTextInput(value) {
+  static isValidTextInput(value) {
     return value && value !== '';
   }
 

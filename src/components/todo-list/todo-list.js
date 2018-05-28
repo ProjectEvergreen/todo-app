@@ -1,4 +1,5 @@
 import { html, render } from 'lit-html/lib/lit-extended';
+import { repeat } from '../../../node_modules/lit-html/lib/repeat';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
 import '../todo-list-item/todo-list-item';
@@ -21,7 +22,7 @@ class TodoList extends HTMLElement {
   addTodo() {
     const newTodoValue = this.root.getElementById('todo-input').value;
 
-    if (ValidationService.isValidateTextInput(newTodoValue)) {
+    if (ValidationService.isValidTextInput(newTodoValue)) {
       const now = new Date().getTime();
 
       this.todos.push({
@@ -71,14 +72,6 @@ class TodoList extends HTMLElement {
     render(this.template(), this.root);
   }
 
-  renderTodoListItems() {
-    return this.todos.map((todo) => {
-      return html` 
-        <li><pe-todo-list-item todo$=${ JSON.stringify(todo) }></pe-todo-list-item></li>
-      `;
-    });
-  }
-
   template() {
     return html`
       <style>
@@ -96,7 +89,8 @@ class TodoList extends HTMLElement {
         </form>
 
         <ol>
-          ${ this.renderTodoListItems() }
+          ${repeat(this.todos, (todo) => todo.id, (todo) => html`
+            <li><pe-todo-list-item todo$=${ JSON.stringify(todo) }></pe-todo-list-item></li>`)}
         </ol>
     
       </div>
