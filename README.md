@@ -1,18 +1,9 @@
-# todo-mvc
+# todo-app
 
 ## Overview
-An example repo reproducing the ever so classic "Todo" app using Project Evergreen.
+An example repo reproducing the ever so classic "Todo" app.
 
-> Follows the [app specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/) with certain tweaks.
-
-## Main Features
-
-### JavaScript
-- Web Components (Custom Elements, Shadow DOM, HTML Templates)
-- 
-
-### CSS
-- 
+> Loosely follows the [app specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/).
 
 ## Development
 Tasks to get you going working on this project:
