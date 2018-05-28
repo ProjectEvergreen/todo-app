@@ -1,6 +1,5 @@
 import { html, render } from 'lit-html/lib/lit-extended';
 import { repeat } from '../../../node_modules/lit-html/lib/repeat';
-// import { toggle } from '../../../node_modules/lit-html/lib/toggle';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
 import '../todo-list-item/todo-list-item';
