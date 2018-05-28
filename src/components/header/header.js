@@ -17,10 +17,7 @@ class Header extends HTMLElement {
       
       <header>        
 
-        <h2 class="header-text">Project Evergreen: Todo App Example</h2>
-
-        <a href="https://github.com/ProjectEvergreen" target="_blank" rel="noopener">github</a> |
-        <a href="https://twitter.com/PrjEvergreen" target="_blank" rel="noopener">twitter</a> 
+        <h2 class="header-text">Todo App Example</h2>
     
       </header>
     `;

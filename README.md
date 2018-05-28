@@ -1,7 +1,9 @@
 # todo-app
 
 ## Overview
-An example repo reproducing the ever so classic "Todo" app.  Loosely follows the [specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/).
+An example repo reproducing the ever so classic "Todo" app.  Loosely follows the [app specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/).
+
+![Todo App](https://s3.amazonaws.com/uploads.thegreenhouse.io/project-evergreen/todo-app-0.1.0.png)
 
 ## Development
 Tasks to get you going working on this project:
