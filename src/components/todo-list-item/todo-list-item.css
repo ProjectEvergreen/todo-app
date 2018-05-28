@@ -1,0 +1,5 @@
+:host {
+  & span.delete-todo {
+    cursor: pointer;
+  }
+}

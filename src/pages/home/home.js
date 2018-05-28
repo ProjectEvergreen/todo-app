@@ -1,12 +1,16 @@
 import { html, render } from 'lit-html';
+import '../../components/todo-list/todo-list';
 import css from './home.css';
 
 class Home extends HTMLElement {
   constructor() {
     super();
 
+    this.todos = [];
+
+    // setup the component's template
     this.root = this.attachShadow({ mode: 'closed' });    
-    render(this.template(), this.root);
+    render(this.template(), this.root);  
   }
 
   template() {
@@ -16,7 +20,9 @@ class Home extends HTMLElement {
       </style>
 
       <div>
-        <h3>Home Page 👍</h3>
+
+        <pe-todo-list></pe-todo-list>
+
       </div>
     `;
   }

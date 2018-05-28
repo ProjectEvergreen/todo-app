@@ -12,7 +12,7 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].[chunkhash].bundle.js'
   },
-
+  
   module: {
     rules: [{
       test: /\.js$/,
