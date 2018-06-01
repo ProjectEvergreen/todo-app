@@ -16,7 +16,7 @@ class Footer extends HTMLElement {
       </style>
       
       <footer>
-        <a href="https://project-evergreen.thegreenhouse.io">Project Evergreen</a>
+        <a href="https://projectevergreen.github.io">Project Evergreen</a>
       </footer>
     `;
   }
