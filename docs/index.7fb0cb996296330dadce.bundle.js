@@ -28,7 +28,7 @@ const o=new Map,n=(t,...e)=>new i(t,e,"html");class i{constructor(t,e,s,o=_){thi
       </style>
       
       <footer>
-        <a href="https://project-evergreen.thegreenhouse.io">Project Evergreen</a>
+        <a href="https://projectevergreen.github.io">Project Evergreen</a>
       </footer>
     `}});
 /**
