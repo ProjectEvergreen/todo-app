@@ -1,6 +1,6 @@
 {
   "name": "todo-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Todo App example as an \"evergreen\" project",
   "main": "src/index.js",
   "repository": "git@github.com:ProjectEvergreen/todo-app.git",
