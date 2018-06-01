@@ -9,6 +9,7 @@
   "scripts": {
     "build": "rimraf ./build && webpack --config webpack.config.prod.js",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
+    "gh-pages": "yarn build && cp -rv ./build ./docs",
     "serve": "yarn build && cd build && http-server -o"
   },
   "dependencies": {

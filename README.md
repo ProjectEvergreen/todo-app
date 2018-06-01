@@ -18,3 +18,13 @@ Tasks to get you going working on this project:
 
 ### Misc
 - Visual Studio Code has [an extenstion to support lit-html](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
+
+## Release Management / GitHub Pages
+GitHub pages has been setup for this repo.  The URL `https://projectevergreen.github.io/todo-app`.  
+
+To generate a new release and generate an updated version of the code for GitHub pages, do the following:
+1. Make sure all changes to be released have gone into the `master` branch
+1. Run `yarn gh-pages`;
+1. Commit this changes
+1. Bump `package.json` and `git tag` the release
+1. Push to `master` with `--tags` and and verify the deployment
