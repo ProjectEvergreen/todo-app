@@ -13,9 +13,13 @@
     "serve": "yarn build && cd build && http-server -o"
   },
   "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.0.4",
     "lit-html": "^0.10.0"
   },
   "devDependencies": {
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "babel-preset-env": "^1.7.0",
     "css-loader": "^0.28.11",
     "css-to-string-loader": "^0.1.3",
     "cssnano": "^3.10.0",
