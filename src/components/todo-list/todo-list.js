@@ -16,7 +16,7 @@ class TodoListComponent extends LitElement {
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
   }
 
-  // TODO get user input through?
+  // TODO get user input through - in new version?
   static get properties() { 
     return { 
       todos: Array
@@ -44,7 +44,6 @@ class TodoListComponent extends LitElement {
   }
 
   completeTodo(todoId) {
-    console.log('complete todo', todoId);
     const updatedTodos = this.todos.map((todo) => {
       todo.completed = todoId === todo.id ? !todo.completed : todo.completed;
       
@@ -57,14 +56,12 @@ class TodoListComponent extends LitElement {
   }
 
   deleteTodo(todoId) {    
-    console.log('deletetodo', todoId);
     this.todos = this.todos.filter((todo) => {
       return todo.id !== todoId;
     });
   }
 
   _render(props) {
-    console.log('TodoList render');
     const todos = props.todos;
     const completedTodos = todos.filter((todo) => { return todo.completed; });
     const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === todos.length;
@@ -85,15 +82,12 @@ class TodoListComponent extends LitElement {
           <button id="add-todo" type="button" on-click=${() => { this.addTodo(); }}>+ Add</button>
         </form>
 
+        <!-- have to use a dynamic key here to force change detection when passing objects -->
         <ol>
-          ${repeat(todos, (todo) => todo.id, (todo) => html`
-            <pre>${JSON.stringify(todo)}</pre>
+          ${repeat(todos, () => new Date().getTime(), (todo) => html`
             <li>
               <x-todo-list-item 
                 todo=${todo}
-                completed="${todo.completed}"
-                id="${todo.id}"
-                title="${todo.task}"
               ></x-todo-list-item>
             </li>
           `)}

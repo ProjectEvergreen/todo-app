@@ -6,14 +6,11 @@ class TodoListItemComponent extends LitElement {
   constructor() {
     super();
 
-    this.todo = '';
+    this.todo = {};
   }
 
   static get properties() {
     return {
-      title: String,
-      id: Number,
-      completed: Boolean,
       todo: Object
     };
   }
@@ -31,19 +28,19 @@ class TodoListItemComponent extends LitElement {
     document.dispatchEvent(event);
   }
 
-  _render({ id, title, completed }) {
+  _render({ todo }) {
+    console.log('_render', todo);
     // let props = JSON.parse(todo);
 
-    console.log('!!!!!!!!!!???????? todo list item render + props', id);
-    console.log('!!!!!!!!!!???????? todo list item render + props', title);
-    console.log('!!!!!!!!!!???????? todo list item render + props', completed);
+    // console.log('!!!!!!!!!!???????? todo list item render + props', id);
+    // console.log('!!!!!!!!!!???????? todo list item render + props', title);
+    // console.log('!!!!!!!!!!???????? todo list item render + props', completed);
     console.log('!!!!!!!!!!???????? todo list item render + props', this.todo);
     console.log(this.title);
-    const todo = this.todo;
+    // const todo = propsTodo;
     const isCompleted = todo.completed;
     const completionStatus = isCompleted ? '✅' : '⛔';
-    const props = this.todo;
-
+    
     console.log('completion status', completionStatus);
     return html` 
       <style>
@@ -51,12 +48,12 @@ class TodoListItemComponent extends LitElement {
       </style>
 
       <span>
-        ${props.task}
+        ${todo.task}
 
         <input class="complete-todo" type="checkbox" checked=${isCompleted} on-change=${() => { this.dispatchCompleteTodoEvent(todo.id); }}/>
         <span>${completionStatus}</span>
             
-        <span class="delete-todo" on-click=${() => { this.dispatchDeleteTodoEvent(props.id); }}>❌</span>
+        <span class="delete-todo" on-click=${() => { this.dispatchDeleteTodoEvent(todo.id); }}>❌</span>
       </span>
     `;
   }
