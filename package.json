@@ -13,7 +13,7 @@
     "serve": "yarn build && cd build && http-server -o"
   },
   "dependencies": {
-    "lit-html": "^0.10.0"
+    "@polymer/lit-element": "^0.5.2"
   },
   "devDependencies": {
     "css-loader": "^0.28.11",

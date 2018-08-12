@@ -1,15 +1,9 @@
-import { html, render } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
 import css from './header.css';
 
-class Header extends HTMLElement {
-  constructor() {
-    super();
-    
-    this.root = this.attachShadow({ mode: 'closed' });
-    render(this.template(), this.root);
-  }
+class HeaderComponent extends LitElement {
 
-  template() {
+  _render() {
     return html`
       <style>
         ${css}
@@ -24,4 +18,4 @@ class Header extends HTMLElement {
   }
 }
 
-customElements.define('pe-header', Header);
+customElements.define('x-header', HeaderComponent);

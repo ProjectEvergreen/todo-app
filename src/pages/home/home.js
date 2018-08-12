@@ -1,19 +1,15 @@
-import { html, render } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
 import '../../components/todo-list/todo-list';
 import css from './home.css';
 
-class Home extends HTMLElement {
+class HomePage extends LitElement {
   constructor() {
     super();
 
     this.todos = [];
-
-    // setup the component's template
-    this.root = this.attachShadow({ mode: 'closed' });    
-    render(this.template(), this.root);  
   }
 
-  template() {
+  _render() {
     return html`
       <style>
         ${css}
@@ -21,11 +17,11 @@ class Home extends HTMLElement {
 
       <div>
 
-        <pe-todo-list></pe-todo-list>
+        <x-todo-list></x-todo-list>
 
       </div>
     `;
   }
 }
 
-customElements.define('pe-home', Home);
+customElements.define('x-home-page', HomePage);

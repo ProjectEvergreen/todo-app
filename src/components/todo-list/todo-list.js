@@ -1,66 +1,73 @@
-import { html, render } from 'lit-html/lib/lit-extended';
-import { repeat } from '../../../node_modules/lit-html/lib/repeat';
+import { html, LitElement } from '@polymer/lit-element';
+import { repeat } from 'lit-html/lib/repeat';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
 import '../todo-list-item/todo-list-item';
 import css from './todo-list.css';
 
-class TodoList extends HTMLElement {
+class TodoListComponent extends LitElement {
   
   constructor() {
     super();
 
     this.todos = [];
-    this.root = this.attachShadow({ mode: 'closed' });
-
+    
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
+  }
 
-    render(this.template(), this.root);
+  // TODO get user input through?
+  static get properties() { 
+    return { 
+      todos: Array
+    };
   }
 
   addTodo() {
-    const inputElement = this.root.getElementById('todo-input');
+    const inputElement = this._root.getElementById('todo-input');
     const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
       const now = new Date().getTime();
 
-      this.todos.push({
+      this.todos = Object.assign([...this.todos, {
         completed: false,
         task: userInput,
         id: now,
         created: now
-      });
+      }]);
 
       inputElement.value = '';
-      render(this.template(), this.root);
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
   }
 
-  deleteTodo(todoId) {    
-    this.todos = this.todos.filter((todo) => {
-      return todo.id !== parseInt(todoId, 10);
-    });
-
-    render(this.template(), this.root);
-  }
-
   completeTodo(todoId) {
-    this.todos = this.todos.map((todo) => {
-      todo.completed = todo.id === parseInt(todoId, 10) ? !todo.completed : todo.completed;
-
+    console.log('complete todo', todoId);
+    const updatedTodos = this.todos.map((todo) => {
+      todo.completed = todoId === todo.id ? !todo.completed : todo.completed;
+      
       return todo;
     });
 
-    render(this.template(), this.root);
+    console.log('updatedTodos', updatedTodos);
+
+    this.todos = Object.assign([...updatedTodos]);
   }
 
-  template() {
-    const completedTodos = this.todos.filter((todo) => { return todo.completed; });
-    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === this.todos.length;
+  deleteTodo(todoId) {    
+    console.log('deletetodo', todoId);
+    this.todos = this.todos.filter((todo) => {
+      return todo.id !== todoId;
+    });
+  }
+
+  _render(props) {
+    console.log('TodoList render');
+    const todos = props.todos;
+    const completedTodos = todos.filter((todo) => { return todo.completed; });
+    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === todos.length;
 
     return html`
       <style>
@@ -70,17 +77,26 @@ class TodoList extends HTMLElement {
       <div>
         <h3><u>My Todo List 📝</u></h3>
 
-        <h5>Completed Todos:<pe-badge counter$=${completedTodos.length} 
-                                      condition$=${allTodosCompleted}></pe-badge></h5>
+        <h5>Completed Todos:<x-badge counter=${completedTodos.length} 
+                                      condition=${allTodosCompleted}></x-badge></h5>
         
-        <form onsubmit=${() => { this.addTodo(); return false; }}>
+        <form on-submit=${() => { this.addTodo(); return false; }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-          <button id="add-todo" type="submit">+ Add</button>
+          <button id="add-todo" type="button" on-click=${() => { this.addTodo(); }}>+ Add</button>
         </form>
 
         <ol>
-          ${repeat(this.todos, (todo) => todo.id, (todo) => html`
-            <li><pe-todo-list-item todo$=${ JSON.stringify(todo) }></pe-todo-list-item></li>`)}
+          ${repeat(todos, (todo) => todo.id, (todo) => html`
+            <pre>${JSON.stringify(todo)}</pre>
+            <li>
+              <x-todo-list-item 
+                todo=${todo}
+                completed="${todo.completed}"
+                id="${todo.id}"
+                title="${todo.task}"
+              ></x-todo-list-item>
+            </li>
+          `)}
         </ol>
     
       </div>
@@ -88,4 +104,4 @@ class TodoList extends HTMLElement {
   }
 }
 
-customElements.define('pe-todo-list', TodoList);
+customElements.define('x-todo-list', TodoListComponent);

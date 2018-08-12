@@ -1,15 +1,9 @@
-import { html, render } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
 import css from './footer.css';
 
-class Footer extends HTMLElement {
-  constructor() {
-    super();
-    
-    this.root = this.attachShadow({ mode: 'closed' });
-    render(this.template(), this.root);
-  }
+class FooterComponent extends LitElement {
 
-  template() {
+  _render() {
     return html`
       <style>
         ${css}
@@ -22,4 +16,4 @@ class Footer extends HTMLElement {
   }
 }
 
-customElements.define('pe-footer', Footer);
+customElements.define('x-footer', FooterComponent);
