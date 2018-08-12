@@ -16,7 +16,6 @@ class TodoListItemComponent extends LitElement {
   }
 
   dispatchCompleteTodoEvent(todoId) {
-    console.log('dispatchCompleteTodoEvent', todoId);
     const event = new CustomEvent('completeTodo', { detail: todoId });
 
     document.dispatchEvent(event);
@@ -29,19 +28,9 @@ class TodoListItemComponent extends LitElement {
   }
 
   _render({ todo }) {
-    console.log('_render', todo);
-    // let props = JSON.parse(todo);
-
-    // console.log('!!!!!!!!!!???????? todo list item render + props', id);
-    // console.log('!!!!!!!!!!???????? todo list item render + props', title);
-    // console.log('!!!!!!!!!!???????? todo list item render + props', completed);
-    console.log('!!!!!!!!!!???????? todo list item render + props', this.todo);
-    console.log(this.title);
-    // const todo = propsTodo;
     const isCompleted = todo.completed;
     const completionStatus = isCompleted ? '✅' : '⛔';
     
-    console.log('completion status', completionStatus);
     return html` 
       <style>
         ${css}

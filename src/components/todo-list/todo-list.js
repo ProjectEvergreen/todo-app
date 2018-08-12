@@ -16,7 +16,8 @@ class TodoListComponent extends LitElement {
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
   }
 
-  // TODO get user input through - in new version?
+  // get user input through attributes? 
+  // https://github.com/ProjectEvergreen/todo-app/issues/7
   static get properties() { 
     return { 
       todos: Array
@@ -41,6 +42,8 @@ class TodoListComponent extends LitElement {
     } else {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
+
+    return false;
   }
 
   completeTodo(todoId) {
@@ -49,8 +52,6 @@ class TodoListComponent extends LitElement {
       
       return todo;
     });
-
-    console.log('updatedTodos', updatedTodos);
 
     this.todos = Object.assign([...updatedTodos]);
   }
@@ -77,14 +78,14 @@ class TodoListComponent extends LitElement {
         <h5>Completed Todos:<x-badge counter=${completedTodos.length} 
                                       condition=${allTodosCompleted}></x-badge></h5>
         
-        <form on-submit=${() => { this.addTodo(); return false; }}>
+        <form on-submit=${() => { return this.addTodo(); }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
           <button id="add-todo" type="button" on-click=${() => { this.addTodo(); }}>+ Add</button>
         </form>
 
         <!-- have to use a dynamic key here to force change detection when passing objects -->
         <ol>
-          ${repeat(todos, () => new Date().getTime(), (todo) => html`
+          ${repeat(todos, (todo) => new Date().getTime() + todo.id, (todo) => html`
             <li>
               <x-todo-list-item 
                 todo=${todo}
