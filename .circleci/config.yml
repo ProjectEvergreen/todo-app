@@ -21,5 +21,9 @@ jobs:
           command: yarn install
 
       - run:
+          name: Run Linter
+          command: yarn lint
+
+      - run:
           name: Execute The Build
           command: yarn run build
