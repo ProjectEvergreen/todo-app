@@ -7,7 +7,7 @@
   "author": "Owen Buckley <owen@thegreenhouse.io>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./build && webpack --config webpack.config.prod.js",
+    "build": "rimraf ./build && webpack --config webpack.config.prod.js --progress",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
     "gh-pages": "rimraf ./docs && yarn build && cp -rv ./build/ ./docs",
     "serve": "yarn build && cd build && http-server -o"
