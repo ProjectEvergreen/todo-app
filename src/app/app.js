@@ -2,7 +2,6 @@ import { html, LitElement } from '@polymer/lit-element';
 import '../components/header/header';
 import '../components/footer/footer';
 import '../pages/home/home';
-
 import css from './app.css';
 
 // TOOD component MUST be transpiled with native Class syntax intact? need to check browser support

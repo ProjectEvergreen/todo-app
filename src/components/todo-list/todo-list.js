@@ -29,14 +29,14 @@ class TodoListComponent extends LitElement {
     const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
-      const now = new Date().getTime();
+      const now = Date.now();
 
-      this.todos = Object.assign([...this.todos, {
+      this.todos = [...this.todos, {
         completed: false,
         task: userInput,
         id: now,
         created: now
-      }]);
+      }];
 
       inputElement.value = '';
     } else {
@@ -53,7 +53,7 @@ class TodoListComponent extends LitElement {
       return todo;
     });
 
-    this.todos = Object.assign([...updatedTodos]);
+    this.todos = [...updatedTodos];
   }
 
   deleteTodo(todoId) {    
@@ -85,7 +85,7 @@ class TodoListComponent extends LitElement {
 
         <!-- have to use a dynamic key here to force change detection when passing objects -->
         <ol>
-          ${repeat(todos, (todo) => new Date().getTime() + todo.id, (todo) => html`
+          ${repeat(todos, (todo) => Date.now() + todo.id, (todo) => html`
             <li>
               <x-todo-list-item 
                 todo=${todo}
