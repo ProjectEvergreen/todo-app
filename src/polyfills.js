@@ -4,4 +4,6 @@
 // Use built ins?
 // https://babeljs.io/docs/en/babel-preset-env/#usebuiltins
 
+// this shouldn't be webpacked?
+// https://github.com/webcomponents/webcomponentsjs/issues/891#issuecomment-412302377
 import '@webcomponents/webcomponentsjs';
