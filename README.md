@@ -28,13 +28,3 @@ To generate a new release and generate an updated version of the code for GitHub
 1. Commit this changes
 1. Bump `package.json` and `git tag` the release
 1. Push to `master` with `--tags` and and verify the deployment
-
-Using arrays
-https://github.com/Polymer/lit-html/issues/361#issuecomment-412658407
-
-
-
-Failed to construct 'HTMLElement': Please use the 'new' operator (https://github.com/github/babel-plugin-transform-custom-element-classes/blob/master/README.md)
-Class constructor PropertiesMixin cannot be invoked without 'new' (other transform - https://github.com/babel/babel/issues/4480)
-
-is babel transpiling classes?
