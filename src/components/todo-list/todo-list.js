@@ -43,8 +43,6 @@ class TodoListComponent extends LitElement {
       console.warn('invalid input, please try again'); // eslint-disable-line
     }
 
-    this._render({ todos: this.todos });
-
     return false;
   }
 
