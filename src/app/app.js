@@ -1,21 +1,14 @@
-import { html, render } from 'lit-html';
+import { html, LitElement } from '@polymer/lit-element';
 import '../components/header/header';
 import '../components/footer/footer';
 import '../pages/home/home';
-
 import css from './app.css';
 
 // TOOD component MUST be transpiled with native Class syntax intact? need to check browser support
 // https://stackoverflow.com/questions/39037489/extending-htmlelement-constructor-fails-when-webpack-was-used
-class App extends HTMLElement {
-  constructor() {
-    super();
-    
-    this.root = this.attachShadow({ mode: 'closed' });
-    render(this.template(), this.root);
-  }
+class App extends LitElement {
 
-  template() {
+  _render() {
     return html`
       <style>
         ${css}
@@ -24,15 +17,15 @@ class App extends HTMLElement {
       <div id="container">
 
         <section>
-          <pe-header></pe-header>
+          <x-header></x-header>
         </section>
         
         <section>
-          <pe-home></pe-home>
+          <x-home-page></x-home-page>
         </section>
 
         <section>
-          <pe-footer></pe-footer>
+          <x-footer></x-footer>
         </section>
 
       </div>
@@ -40,4 +33,4 @@ class App extends HTMLElement {
   }
 }
 
-customElements.define('pe-app', App);
+customElements.define('x-app', App);

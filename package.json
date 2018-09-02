@@ -7,18 +7,21 @@
   "author": "Owen Buckley <owen@thegreenhouse.io>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./build && webpack --config webpack.config.prod.js",
+    "build": "rimraf ./build && webpack --config webpack.config.prod.js --progressg",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
+    "lint": "eslint *.js",
     "gh-pages": "rimraf ./docs && yarn build && cp -rv ./build/ ./docs",
     "serve": "yarn build && cd build && http-server -o"
   },
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.0.4",
-    "lit-html": "^0.10.0"
+    "@polymer/lit-element": "^0.5.2",
+    "@webcomponents/webcomponentsjs": "^2.0.4"
   },
   "devDependencies": {
     "babel-loader": "^7.1.5",
+    "babel-plugin-transform-builtin-classes": "^0.6.1",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "css-loader": "^0.28.11",
     "css-to-string-loader": "^0.1.3",

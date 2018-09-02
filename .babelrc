@@ -1,6 +1,9 @@
 {
   "presets": ["env"],
   "plugins": [
-    "transform-custom-element-classes"
+    "transform-custom-element-classes",
+    ["babel-plugin-transform-builtin-classes", {
+      "globals": ["Array", "Error", "HTMLElement"]
+    }]
   ]
 }

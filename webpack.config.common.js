@@ -19,9 +19,10 @@ module.exports = {
       enforce: 'pre',
       loader: 'eslint-loader',
       exclude: path.join(__dirname, 'node_modules')
-    }, {
-      test: /\.js$/,
-      loader: 'babel-loader'
+    // }, {
+    //   test: /\.js$/,
+    //   loader: 'babel-loader',
+    //   include: path.resolve(__dirname, 'node_modules/@polymer/lit-element')
     }, {
       test: /\.css$/,
       use: ['css-to-string-loader', 'css-loader', 'postcss-loader'],
