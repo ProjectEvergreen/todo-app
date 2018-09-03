@@ -14,12 +14,12 @@ Browser Testing
 - [x] Desktop Safari 11.1.2
 - [ ] IE11
     - ~~Hello World Example~~
-    - ~~`develop`: fails on eval (devServer w/ `inline: true`)~~ - https://github.com/webpack/webpack-dev-server/issues/1268, 
-    https://webpack.js.org/configuration/dev-server/#devserver-inline
-    - ~~`serve`: fails on `()=>`~~ - babel polyfill
+      - ~~`develop`: fails on eval (devServer w/ `inline: true`)~~ - https://github.com/webpack/webpack-dev-server/issues/1268, https://webpack.js.org/configuration/dev-server/#devserver-inline
     - Hello World Example w/lit-html  + lit-element
+      - ~~`Function.prototype.toString: 'this' is not a Function object`~~ - babel polyfill
+      - `serve`: fails on `()=>`~~ - 
     - Complete App
-- [ ] Edge
+- [ ] Edge (rewind back to Chrome / FF / Safari commit to understand just the cost of IE, may need to fix browserslist, `not ie 11`)
 - [ ] Mobile Safari
 - [ ] Documentation / fast follows
 - [ ] Improvement - copy webpack plugin?  polyfill.io?  prefetch?
@@ -35,19 +35,17 @@ CLA
 ### Babel 7!!
 ```json
 {
-  "presets": ["@babel/preset-env"]
+  "presets": ["@babel/preset-env"],
+    "plugins": [
+    ["babel-plugin-transform-builtin-classes", {
+      "globals": ["LitElement"]
+    }]
+  ]
 }
 ```
 
-- is babel-plugin-transform-builtin-classes needed when using `LitElement`?
+- is babel-plugin-transform-builtin-classes needed when using `LitElement`?  Yes!
 https://github.com/WebReflection/babel-plugin-transform-builtin-classes/issues/16#issuecomment-418140069
-```
-  "plugins": [
-    ["babel-plugin-transform-builtin-classes", {
-      "globals": ["Array", "Error", "HTMLElement", "LitElement"]
-    }]
-  ]
-```
 
 ### Browserslist
 - preset-env / browserlist: https://github.com/babel/babel/issues/7789
@@ -67,22 +65,32 @@ https://github.com/webcomponents/webcomponentsjs/issues/891#issuecomment-4123023
 ```
 
 ### IE11
-like to String
-```html
-<script src="//cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script>"></script>
-```
-
 Update browserslist
 ```shell
 > 1%
 not op_mini all
 - not ie11
+
+toString
+```html
+<script src="//cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script>"></script>
+```
+
+<!-- Add forwards compatibility for ES5 transpiled web components -->
+<!-- Error is a known issue: https://github.com/webcomponents/webcomponentsjs/issues/749 -->
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/2.0.2/custom-elements-es5-adapter.js"></script>
 ```
 
 - ~~`develop`: fails on eval (devServer w/ `inline: true`)~~ - https://github.com/webpack/webpack-dev-server/issues/1268, 
 https://webpack.js.org/configuration/dev-server/#devserver-inline
 
 
+
+Babel 7 config change
+https://github.com/facebook/jest/issues/6053#issuecomment-383632515
+
+- `path.inShadow` - https://github.com/WebReflection/babel-plugin-transform-builtin-classes/issues/16#issuecomment-418140069
 
     /**
       * https://github.com/webcomponents/custom-elements#es5-vs-es2015
