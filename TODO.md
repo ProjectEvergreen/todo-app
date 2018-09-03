@@ -32,16 +32,21 @@ CLA
 - [ ] Lighthouse (for CLA)
 
 ## Build Pipline
-### Babel
+### Babel 7!!
 ```json
 {
-  "presets": ["@babel/preset-env"],
+  "presets": ["@babel/preset-env"]
+}
+```
+
+- is babel-plugin-transform-builtin-classes needed when using `LitElement`?
+https://github.com/WebReflection/babel-plugin-transform-builtin-classes/issues/16#issuecomment-418140069
+```
   "plugins": [
     ["babel-plugin-transform-builtin-classes", {
       "globals": ["Array", "Error", "HTMLElement", "LitElement"]
     }]
   ]
-}
 ```
 
 ### Browserslist
@@ -54,6 +59,7 @@ not ie11
 ```
 
 ### Web Components Polyfill (Firefox)
+https://github.com/WebComponents/webcomponentsjs#using-webcomponents-bundlejs
 - polyfill via CDN, no bundling
 https://github.com/webcomponents/webcomponentsjs/issues/891#issuecomment-412302377
 ```html

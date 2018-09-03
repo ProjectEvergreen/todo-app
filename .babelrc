@@ -1,8 +1,3 @@
 {
-  "presets": ["@babel/preset-env"],
-  "plugins": [
-    ["babel-plugin-transform-builtin-classes", {
-      "globals": ["Array", "Error", "HTMLElement", "LitElement"]
-    }]
-  ]
+  "presets": ["@babel/preset-env"]
 }
