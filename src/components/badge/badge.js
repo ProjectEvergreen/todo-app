@@ -15,14 +15,16 @@ class BadgeComponent extends LitElement {
   }
 
   _render(props) {
-    const conditionClass = props.condition ? 'met' : 'unmet';
+    // TODO chrome errors out without these prop checks
+    const conditionClass = props && props.condition ? 'met' : 'unmet';
+    const counter = props && props.counter ? props.counter : 0;
 
     return html`
       <style>
         ${css}
       </style>
 
-      <span class$=${ conditionClass }>${ props.counter }</span>
+      <span class$=${ conditionClass }>${ counter }</span>
     `;
   }
 }

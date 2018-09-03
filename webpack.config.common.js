@@ -5,8 +5,8 @@ module.exports = {
   context: path.resolve('./src'),
 
   entry: {
-    // index: './index',
-    test: './test'
+    index: './index'
+    // test: './test'
   },
 
   output: {
