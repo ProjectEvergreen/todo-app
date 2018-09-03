@@ -5,11 +5,11 @@ module.exports = {
   context: path.resolve('./src'),
 
   entry: {
-    index: './index'
+    // index: './index',
+    test: './test'
   },
 
   output: {
-    path: path.resolve(__dirname, 'build'),
     filename: '[name].[chunkhash].bundle.js'
   },
   
@@ -21,8 +21,7 @@ module.exports = {
       exclude: path.join(__dirname, 'node_modules')
     }, {
       test: /\.js$/,
-      loader: 'babel-loader',
-      include: path.resolve(__dirname, 'node_modules/@polymer/lit-element')
+      loader: 'babel-loader'
     }, {
       test: /\.css$/,
       use: ['css-to-string-loader', 'css-loader', 'postcss-loader'],

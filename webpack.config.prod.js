@@ -1,4 +1,5 @@
 const commonConfig = require('./webpack.config.common');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const webpackMerge = require('webpack-merge');
 
@@ -27,6 +28,11 @@ module.exports = webpackMerge(commonConfig, {
         yandex: false,
         windows: false
       }
+    }),
+
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      openAnalyzer: false
     })
   ]
   

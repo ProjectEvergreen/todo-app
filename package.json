@@ -7,11 +7,11 @@
   "author": "Owen Buckley <owen@thegreenhouse.io>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf ./build && webpack --config webpack.config.prod.js --progressg",
+    "build": "rimraf ./dist && webpack --config webpack.config.prod.js --progress",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
     "lint": "eslint *.js",
-    "gh-pages": "rimraf ./docs && yarn build && cp -rv ./build/ ./docs",
-    "serve": "yarn build && cd build && http-server -o"
+    "gh-pages": "rimraf ./docs && yarn build && cp -rv ./dist/ ./docs",
+    "serve": "yarn build && cd dist && http-server -o"
   },
   "dependencies": {
     "@polymer/lit-element": "^0.5.2",
@@ -21,6 +21,8 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.1",
+    "babel-plugin-transform-builtin-classes": "^0.6.1",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
     "css-loader": "^0.28.11",
     "css-to-string-loader": "^0.1.3",
     "cssnano": "^3.10.0",
@@ -35,6 +37,7 @@
     "rimraf": "^2.6.2",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.3",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4",
     "webpack-merge": "^4.1.2"
