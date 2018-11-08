@@ -12,7 +12,7 @@
     "lint": "eslint *.js",
     "gh-pages": "rimraf ./docs && yarn build && cp -rv ./build/ ./docs",
     "serve": "yarn build && cd build && http-server -o",
-    "test": "karma start"
+    "test": "rimraf ./reports && karma start"
   },
   "dependencies": {
     "@polymer/lit-element": "^0.5.2"
