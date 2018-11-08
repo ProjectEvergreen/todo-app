@@ -1,15 +1,15 @@
 import './footer.js';
 
 describe('Footer Component', () => {
-  let header;
+  let footer;
 
   beforeEach(async () => {
-    header = document.createElement('x-footer');
+    footer = document.createElement('x-footer');
 
-    document.body.appendChild(header);
+    document.body.appendChild(footer);
 
     // this is what makes the magic happen ✨
-    await header.updateComplete;
+    await footer.updateComplete;
   });
 
   afterEach(() => {
@@ -24,5 +24,5 @@ describe('Footer Component', () => {
       expect(greeting.innerHTML).toBe('Project Evergreen');
     });
   });
-  
+
 });

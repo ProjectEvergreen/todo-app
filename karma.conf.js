@@ -65,7 +65,7 @@ module.exports = function (config) {
     junitReporter: {
       outputDir: './reports/test-results/',
       outputFile: 'test-results.xml',
-      suite: 'my-app',
+      suite: 'todo-app',
       useBrowserName: false
     },
     coverageIstanbulReporter: {

@@ -6,20 +6,17 @@ import '../todo-list-item/todo-list-item';
 import css from './todo-list.css';
 
 class TodoListComponent extends LitElement {
+
   constructor() {
     super();
 
     this.todos = [];
 
-    document.addEventListener('deleteTodo', event =>
-      this.deleteTodo(event.detail)
-    );
-    document.addEventListener('completeTodo', event =>
-      this.completeTodo(event.detail)
-    );
+    document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
+    document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
   }
 
-  // get user input through attributes?
+  // get user input through attributes? 
   // https://github.com/ProjectEvergreen/todo-app/issues/7
   static get properties() {
     return {
@@ -27,23 +24,19 @@ class TodoListComponent extends LitElement {
     };
   }
 
-  addTodo(e) {
-    e.preventDefault();
+  addTodo() {
     const inputElement = this._root.getElementById('todo-input');
     const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
       const now = Date.now();
 
-      this.todos = [
-        ...this.todos,
-        {
-          completed: false,
-          task: userInput,
-          id: now,
-          created: now
-        }
-      ];
+      this.todos = [...this.todos, {
+        completed: false,
+        task: userInput,
+        id: now,
+        created: now
+      }];
 
       inputElement.value = '';
     } else {
@@ -54,7 +47,7 @@ class TodoListComponent extends LitElement {
   }
 
   completeTodo(todoId) {
-    const updatedTodos = this.todos.map(todo => {
+    const updatedTodos = this.todos.map((todo) => {
       todo.completed = todoId === todo.id ? !todo.completed : todo.completed;
 
       return todo;
@@ -64,20 +57,16 @@ class TodoListComponent extends LitElement {
   }
 
   deleteTodo(todoId) {
-    this.todos = this.todos.filter(todo => {
+    this.todos = this.todos.filter((todo) => {
       return todo.id !== todoId;
     });
   }
 
   _render(props) {
     const todos = props.todos;
-    const completedTodos = todos.filter(todo => {
-      return todo.completed;
-    });
-    const allTodosCompleted =
-      completedTodos.length !== 0 && completedTodos.length === todos.length;
+    const completedTodos = todos.filter((todo) => { return todo.completed; });
+    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === todos.length;
 
-    // prettier-ignore
     return html`
       <style>
         ${css}
@@ -89,9 +78,9 @@ class TodoListComponent extends LitElement {
         <h5>Completed Todos:<x-badge counter=${completedTodos.length} 
                                       condition=${allTodosCompleted}></x-badge></h5>
         
-        <form on-submit=${(e) => { this.addTodo(e); }}>
+        <form on-submit=${() => { return this.addTodo(); }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-          <button id="add-todo" type="button" on-click=${(e) => { this.addTodo(e); }}>+ Add</button>
+          <button id="add-todo" type="button" on-click=${() => { this.addTodo(); }}>+ Add</button>
         </form>
 
         <!-- have to use a dynamic key here to force change detection when passing objects -->
