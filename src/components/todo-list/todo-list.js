@@ -6,20 +6,20 @@ import '../todo-list-item/todo-list-item';
 import css from './todo-list.css';
 
 class TodoListComponent extends LitElement {
-  
+
   constructor() {
     super();
 
     this.todos = [];
-    
+
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
   }
 
   // get user input through attributes? 
   // https://github.com/ProjectEvergreen/todo-app/issues/7
-  static get properties() { 
-    return { 
+  static get properties() {
+    return {
       todos: Array
     };
   }
@@ -49,14 +49,14 @@ class TodoListComponent extends LitElement {
   completeTodo(todoId) {
     const updatedTodos = this.todos.map((todo) => {
       todo.completed = todoId === todo.id ? !todo.completed : todo.completed;
-      
+
       return todo;
     });
 
     this.todos = [...updatedTodos];
   }
 
-  deleteTodo(todoId) {    
+  deleteTodo(todoId) {
     this.todos = this.todos.filter((todo) => {
       return todo.id !== todoId;
     });
