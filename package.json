@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rimraf ./build && webpack --config webpack.config.prod.js --progressg",
     "develop": "webpack-dev-server --config webpack.config.develop.js --open",
-    "lint": "eslint *.js",
+    "lint": "eslint \"*.js\" \"./src/**/*.js\"",
     "gh-pages": "rimraf ./docs && yarn build && cp -rv ./build/ ./docs",
     "serve": "yarn build && cd build && http-server -o",
     "test": "rimraf ./reports && karma start"

@@ -13,15 +13,23 @@ describe('Footer Component', () => {
   });
 
   afterEach(() => {
-    header.remove();
-    header = null;
+    footer.remove();
+    footer = null;
   });
 
   describe('Default Behavior', () => {
-    it('should have a link to the project', () => {
-      const greeting = header.shadowRoot.querySelectorAll('footer a')[0];
+    let greeting;
+    
+    beforeEach(() => {
+      greeting = footer.shadowRoot.querySelectorAll('footer a')[0];
+    });
 
+    it('should have a link to the project that displays the project name', () => {
       expect(greeting.innerHTML).toBe('Project Evergreen');
+    });
+
+    it('should have a link to the project with the project name', () => {
+      expect(greeting.href).toBe('https://projectevergreen.github.io/');
     });
   });
 
