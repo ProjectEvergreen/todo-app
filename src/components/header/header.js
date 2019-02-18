@@ -1,18 +1,18 @@
-import { html, LitElement } from '@polymer/lit-element';
+import { html, LitElement } from 'lit-element';
 import css from './header.css';
 
 class HeaderComponent extends LitElement {
 
-  _render() {
+  render() {
     return html`
       <style>
         ${css}
       </style>
-      
-      <header>        
+
+      <header>
 
         <h2 class="header-text">Todo App Example</h2>
-    
+
       </header>
     `;
   }

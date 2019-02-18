@@ -1,5 +1,4 @@
-import { html, LitElement } from '@polymer/lit-element';
-import { repeat } from 'lit-html/lib/repeat';
+import { html, LitElement } from 'lit-element';
 import ValidationService from '../../services/validation';
 import '../badge/badge';
 import '../todo-list-item/todo-list-item';
@@ -10,22 +9,22 @@ class TodoListComponent extends LitElement {
     super();
 
     this.todos = [];
+  }
 
+  connectedCallback() {
+    super.connectedCallback();
     document.addEventListener('deleteTodo', (event) => this.deleteTodo(event.detail));
     document.addEventListener('completeTodo', (event) => this.completeTodo(event.detail));
   }
 
-  // get user input through attributes?
-  // https://github.com/ProjectEvergreen/todo-app/issues/7
   static get properties() {
     return {
       todos: Array
     };
   }
 
-  addTodo(e) {
-    e.preventDefault();
-    const inputElement = this._root.getElementById('todo-input');
+  addTodo() {
+    const inputElement = this.shadowRoot.getElementById('todo-input');
     const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
@@ -57,6 +56,7 @@ class TodoListComponent extends LitElement {
     });
 
     this.todos = [...updatedTodos];
+    this.requestUpdate();
   }
 
   deleteTodo(todoId) {
@@ -65,13 +65,10 @@ class TodoListComponent extends LitElement {
     });
   }
 
-  _render(props) {
-    const todos = props.todos;
-    const completedTodos = todos.filter(todo => {
-      return todo.completed;
-    });
-    const allTodosCompleted =
-      completedTodos.length !== 0 && completedTodos.length === todos.length;
+  render() {
+    const todos = this.todos;
+    const completedTodos = todos.filter((todo) => { return todo.completed; });
+    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === todos.length;
 
     // prettier-ignore
     return html`
@@ -85,17 +82,18 @@ class TodoListComponent extends LitElement {
         <h5>Completed Todos:<x-badge counter=${completedTodos.length}
                                       condition=${allTodosCompleted}></x-badge></h5>
 
-        <form on-submit=${(e) => { this.addTodo(e); }}>
-          <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-          <button id="add-todo" type="button" on-click=${(e) => { this.addTodo(e); }}>+ Add</button>
+        <form @submit=${() => { this.addTodo(); }}>
+         <input id="todo-input" type="text" placeholder="Food Shopping" required/>
+          <button id="add-todo" type="button" @click=${() => { this.addTodo(); }}>+ Add</button>
         </form>
 
-        <!-- have to use a dynamic key here to force change detection when passing objects -->
+        <!-- force component to update on change -->
         <ol>
-          ${repeat(todos, (todo) => Date.now() + todo.id, (todo) => html`
+          ${todos.map(todo => html`
             <li>
               <x-todo-list-item
-                todo=${todo}
+                .todo=${todo}
+                updating=${Date.now()}
               ></x-todo-list-item>
             </li>
           `)}

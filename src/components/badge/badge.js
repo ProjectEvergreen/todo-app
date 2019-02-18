@@ -1,7 +1,13 @@
-import { html, LitElement } from '@polymer/lit-element';
+import { html, LitElement } from 'lit-element';
 import css from './badge.css';
 
 class BadgeComponent extends LitElement {
+
+  constructor() {
+    super();
+    this.counter = 0;
+    this.condition = false;
+  }
 
   static get properties() {
     return {
@@ -14,15 +20,15 @@ class BadgeComponent extends LitElement {
     };
   }
 
-  _render(props) {
-    const conditionClass = props.condition ? 'met' : 'unmet';
+  render() {
+    const conditionClass = this.condition ? 'met' : 'unmet';
 
     return html`
       <style>
         ${css}
       </style>
 
-      <span class$=${ conditionClass }>${ props.counter }</span>
+      <span class=${conditionClass}>${this.counter}</span>
     `;
   }
 }

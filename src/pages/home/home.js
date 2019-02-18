@@ -1,4 +1,4 @@
-import { html, LitElement } from '@polymer/lit-element';
+import { html, LitElement } from 'lit-element';
 import '../../components/todo-list/todo-list';
 import css from './home.css';
 
@@ -9,7 +9,7 @@ class HomePage extends LitElement {
     this.todos = [];
   }
 
-  _render() {
+  render() {
     return html`
       <style>
         ${css}
