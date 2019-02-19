@@ -63,6 +63,7 @@ class TodoListComponent extends LitElement {
     this.todos = this.todos.filter((todo) => {
       return todo.id !== todoId;
     });
+    this.requestUpdate();
   }
 
   render() {
