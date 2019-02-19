@@ -23,7 +23,8 @@ class TodoListComponent extends LitElement {
     };
   }
 
-  addTodo() {
+  addTodo(e) {
+    e.preventDefault();
     const inputElement = this.shadowRoot.getElementById('todo-input');
     const userInput = inputElement.value;
 
@@ -83,9 +84,9 @@ class TodoListComponent extends LitElement {
         <h5>Completed Todos:<x-badge counter=${completedTodos.length}
                                       condition=${allTodosCompleted}></x-badge></h5>
 
-        <form @submit=${() => { this.addTodo(); }}>
+        <form @submit=${(e) => { this.addTodo(e); }}>
          <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-          <button id="add-todo" type="button" @click=${() => { this.addTodo(); }}>+ Add</button>
+          <button id="add-todo" type="button" @click=${(e) => { this.addTodo(e); }}>+ Add</button>
         </form>
 
         <!-- force component to update on change -->
