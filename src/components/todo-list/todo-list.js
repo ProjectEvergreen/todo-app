@@ -95,7 +95,6 @@ class TodoListComponent extends LitElement {
             <li>
               <x-todo-list-item
                 .todo=${todo}
-                updating=${Date.now()}
               ></x-todo-list-item>
             </li>
           `)}

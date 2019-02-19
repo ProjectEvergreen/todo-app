@@ -11,8 +11,7 @@ class TodoListItemComponent extends LitElement {
 
   static get properties() {
     return {
-      todo: Object,
-      updating: String
+      todo: Object
     };
   }
 
@@ -26,6 +25,12 @@ class TodoListItemComponent extends LitElement {
     const event = new CustomEvent('deleteTodo', { detail: todoId });
 
     document.dispatchEvent(event);
+  }
+
+  updated() {
+    let el = this.shadowRoot.querySelector('.complete-todo');
+
+    el.checked = this.todo.completed ? 'true' : '';
   }
 
   render() {
