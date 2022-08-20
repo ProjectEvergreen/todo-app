@@ -3,7 +3,7 @@ import { repeat } from 'lit-html/directives/repeat.js';
 import ValidationService from '../../services/validation.js';
 import '../badge/badge.js';
 import '../todo-list-item/todo-list-item.js';
-// import css from './todo-list.css';
+import css from './todo-list.css?type=css';
 
 class TodoListComponent extends LitElement {
   constructor() {
@@ -66,7 +66,6 @@ class TodoListComponent extends LitElement {
   }
 
   render() {
-    const css = '';
     const todos = this.todos;
     const completedTodos = todos.filter(todo => {
       return todo.completed;
@@ -81,8 +80,12 @@ class TodoListComponent extends LitElement {
       <div>
         <h3><u>My Todo List 📝</u></h3>
 
-        <h5>Completed Todos:<x-badge counter=${completedTodos.length}
-                                      condition=${allTodosCompleted}></x-badge></h5>
+        <h5>Completed Todos:
+          <x-badge
+            .counter=${completedTodos.length}
+            .condition=${allTodosCompleted}>
+          </x-badge>
+        </h5>
 
         <form @submit=${(e) => { this.addTodo(e); }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>

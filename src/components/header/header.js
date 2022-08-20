@@ -1,11 +1,9 @@
 import { html, LitElement } from 'lit';
-// import css from './header.css?type=css';
+import css from './header.css?type=css';
 
 class HeaderComponent extends LitElement {
 
   render() {
-    const css = '';
-
     return html`
       <style>
         ${css}

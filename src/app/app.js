@@ -2,13 +2,11 @@ import { html, LitElement } from 'lit';
 import '../components/header/header.js';
 import '../components/footer/footer.js';
 import '../pages/home/home.js';
-// import css from './app.css';
+import css from './app.css?type=css';
 
 class App extends LitElement {
 
   render() {
-    const css = '';
-
     return html`
       <style>
         ${css}

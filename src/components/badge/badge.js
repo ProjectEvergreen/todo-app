@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-// import css from './badge.css';
+import css from './badge.css?type=css';
 
 class BadgeComponent extends LitElement {
 
@@ -15,7 +15,6 @@ class BadgeComponent extends LitElement {
   }
 
   render() {
-    const css = '';
     const conditionClass = this.condition ? 'met' : 'unmet';
 
     return html`

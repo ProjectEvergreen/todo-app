@@ -12,7 +12,7 @@
     "build": "greenwood build",
     "develop": "greenwood develop",
     "lint": "eslint \"*.js\" \"./src/**/*.js\"",
-    "serve": "npm run clean && npm run build && greenwood serve",
+    "serve": "npm run clean && greenwood serve",
     "start": "npm run develop"
   },
   "dependencies": {

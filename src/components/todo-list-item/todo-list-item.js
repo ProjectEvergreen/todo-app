@@ -1,5 +1,5 @@
 import { html, LitElement } from 'lit';
-// import css from './todo-list-item.css';
+import css from './todo-list-item.css?type=css';
 
 class TodoListItemComponent extends LitElement {
 
@@ -28,7 +28,6 @@ class TodoListItemComponent extends LitElement {
   }
 
   render() {
-    const css = '';
     const todo = this.todo;
     const isCompleted = todo.completed;
     const completionStatus = isCompleted ? '✅' : '⛔';
