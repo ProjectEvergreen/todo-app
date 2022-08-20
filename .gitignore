@@ -1,5 +1,6 @@
 *.log
+.greenwood/
 .vscode/
-build/
 node_modules/
+public/
 reports/

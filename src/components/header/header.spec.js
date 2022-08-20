@@ -1,3 +1,4 @@
+import { expect } from '@esm-bundle/chai';
 import './header.js';
 
 describe('Header Component', () => {
@@ -22,7 +23,7 @@ describe('Header Component', () => {
     it('should have a greeting', () => { 
       const greeting = header.shadowRoot.querySelectorAll('header h2')[0];
 
-      expect(greeting.innerHTML).toBe('Todo App Example');
+      expect(greeting.innerHTML).to.equal('Todo App Example');
     });
 
   });

@@ -1,9 +1,9 @@
-import { html, LitElement } from '@polymer/lit-element';
-import { repeat } from 'lit-html/lib/repeat';
-import ValidationService from '../../services/validation';
-import '../badge/badge';
-import '../todo-list-item/todo-list-item';
-import css from './todo-list.css';
+import { html, LitElement } from 'lit';
+import { repeat } from 'lit-html/directives/repeat.js';
+import ValidationService from '../../services/validation.js';
+import '../badge/badge.js';
+import '../todo-list-item/todo-list-item.js';
+import css from './todo-list.css?type=css';
 
 class TodoListComponent extends LitElement {
   constructor() {
@@ -25,7 +25,7 @@ class TodoListComponent extends LitElement {
 
   addTodo(e) {
     e.preventDefault();
-    const inputElement = this._root.getElementById('todo-input');
+    const inputElement = this.shadowRoot.getElementById('todo-input');
     const userInput = inputElement.value;
 
     if (ValidationService.isValidTextInput(userInput)) {
@@ -65,15 +65,13 @@ class TodoListComponent extends LitElement {
     });
   }
 
-  _render(props) {
-    const todos = props.todos;
+  render() {
+    const todos = this.todos;
     const completedTodos = todos.filter(todo => {
       return todo.completed;
     });
-    const allTodosCompleted =
-      completedTodos.length !== 0 && completedTodos.length === todos.length;
+    const allTodosCompleted = completedTodos.length !== 0 && completedTodos.length === todos.length;
 
-    // prettier-ignore
     return html`
       <style>
         ${css}
@@ -82,12 +80,16 @@ class TodoListComponent extends LitElement {
       <div>
         <h3><u>My Todo List 📝</u></h3>
 
-        <h5>Completed Todos:<x-badge counter=${completedTodos.length}
-                                      condition=${allTodosCompleted}></x-badge></h5>
+        <h5>Completed Todos:
+          <x-badge
+            .counter=${completedTodos.length}
+            .condition=${allTodosCompleted}>
+          </x-badge>
+        </h5>
 
-        <form on-submit=${(e) => { this.addTodo(e); }}>
+        <form @submit=${(e) => { this.addTodo(e); }}>
           <input id="todo-input" type="text" placeholder="Food Shopping" required/>
-          <button id="add-todo" type="button" on-click=${(e) => { this.addTodo(e); }}>+ Add</button>
+          <button id="add-todo" type="button" @click=${(e) => { this.addTodo(e); }}>+ Add</button>
         </form>
 
         <!-- have to use a dynamic key here to force change detection when passing objects -->
@@ -95,7 +97,7 @@ class TodoListComponent extends LitElement {
           ${repeat(todos, (todo) => Date.now() + todo.id, (todo) => html`
             <li>
               <x-todo-list-item
-                todo=${todo}
+                .todo=${todo}
               ></x-todo-list-item>
             </li>
           `)}

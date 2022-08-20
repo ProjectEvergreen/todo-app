@@ -1,9 +1,9 @@
-import { html, LitElement } from '@polymer/lit-element';
-import css from './header.css';
+import { html, LitElement } from 'lit';
+import css from './header.css?type=css';
 
 class HeaderComponent extends LitElement {
 
-  _render() {
+  render() {
     return html`
       <style>
         ${css}
