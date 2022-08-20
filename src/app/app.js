@@ -1,14 +1,14 @@
-import { html, LitElement } from '@polymer/lit-element';
-import '../components/header/header';
-import '../components/footer/footer';
-import '../pages/home/home';
-import css from './app.css';
+import { html, LitElement } from 'lit';
+import '../components/header/header.js';
+import '../components/footer/footer.js';
+import '../pages/home/home.js';
+// import css from './app.css';
 
-// TOOD component MUST be transpiled with native Class syntax intact? need to check browser support
-// https://stackoverflow.com/questions/39037489/extending-htmlelement-constructor-fails-when-webpack-was-used
 class App extends LitElement {
 
-  _render() {
+  render() {
+    const css = '';
+
     return html`
       <style>
         ${css}

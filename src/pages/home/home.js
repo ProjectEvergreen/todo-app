@@ -1,15 +1,12 @@
-import { html, LitElement } from '@polymer/lit-element';
-import '../../components/todo-list/todo-list';
-import css from './home.css';
+import { html, LitElement } from 'lit';
+import '../../components/todo-list/todo-list.js';
+// import css from './home.css';
 
 class HomePage extends LitElement {
-  constructor() {
-    super();
 
-    this.todos = [];
-  }
+  render() {
+    const css = '';
 
-  _render() {
     return html`
       <style>
         ${css}
