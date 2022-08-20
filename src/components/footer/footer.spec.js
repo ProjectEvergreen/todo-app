@@ -1,3 +1,4 @@
+import { expect } from '@esm-bundle/chai';
 import './footer.js';
 
 describe('Footer Component', () => {
@@ -25,11 +26,11 @@ describe('Footer Component', () => {
     });
 
     it('should have a link to the project that displays the project name', () => {
-      expect(greeting.innerHTML).toBe('Project Evergreen');
+      expect(greeting.innerHTML).to.equal('Project Evergreen');
     });
 
     it('should have a link to the project with the project name', () => {
-      expect(greeting.href).toBe('https://projectevergreen.github.io/');
+      expect(greeting.href).to.equal('https://projectevergreen.github.io/');
     });
   });
 
