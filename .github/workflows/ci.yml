@@ -9,26 +9,22 @@ jobs:
 
     strategy:
       matrix:
-        node: [14, 16]
+        node: [14]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Chromium Library Dependencies
-      run: |
-        sh ./.github/workflows/chromium-lib-install.sh
     - name: Use Node.js ${{ matrix.node }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node }}
     - name: Installing project dependencies
       run: |
-        yarn install --frozen-lockfile && yarn lerna bootstrap
+        npm ci
     - name: Lint
       run: |
-        yarn lint
+        npm run lint
     - name: Test
       run: |
-        yarn test
+        npm test
     - name: Build
       run: |
-        yarn clean && yarn build
+        npm run build
