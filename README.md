@@ -12,19 +12,9 @@ An example repo reproducing the ever so classic "Todo" app.  Loosely follows the
 
 ## Development
 Tasks to get you going working on this project:
-- `yarn build` - build the app for production
-- `yarn develop` - develop locally with live reload
-- `yarn serve` - build the app and serve it locally (good for quick demos / debugging)
+- `npm run build` - build the app for production
+- `npm run develop` - develop locally with live reload
+- `npm run serve` - build the app and serve it locally (good for quick demos / debugging)
 
 ### Misc
-- Visual Studio Code has [an extenstion to support lit-html](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
-
-## Release Management / GitHub Pages
-GitHub pages has been setup for this repo.  The URL `https://projectevergreen.github.io/todo-app`.  
-
-To generate a new release and generate an updated version of the code for GitHub pages, do the following:
-1. Make sure all changes to be released have gone into the `master` branch
-1. Run `yarn gh-pages`
-1. Commit this changes
-1. Bump `package.json` and `git tag` the release
-1. Push to `master` with `--tags` and and verify the deployment
+- Visual Studio Code has [an extension to support lit-html](https://marketplace.visualstudio.com/items?itemName=bierner.lit-html)
