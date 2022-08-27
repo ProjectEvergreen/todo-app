@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/ProjectEvergreen/todo-app/master/LICENSE.md)
 
 ## Overview
-An example repo reproducing the ever so classic "Todo" app.  Loosely follows the [app specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/).
+An example repo reproducing the ever so classic "Todo" app.  Loosely follows the [app specification](https://github.com/tastejs/todomvc/blob/master/app-spec.md) as defined by the [Todo MVC project](http://todomvc.com/).  Uses the [_experimental JSX feature_](https://merry-caramel-524e61.netlify.app/docs/#jsx) of [**WCC**](https://github.com/ProjectEvergreen/wcc).
 
 ![Todo App](https://s3.amazonaws.com/uploads.thegreenhouse.io/project-evergreen/todo-app-0.1.0.png)
 
