@@ -18,14 +18,62 @@
     <meta name="twitter:creator" content="@PrjEvergreen" />
 
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <style>
+      * {
+        font-family: 'Raleway', sans-serif;
+        font-size: 1.1em;
+      }
 
-    <script type="module" src="./index.js"></script>
+      main {
+        width: 70%;
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 40px;
+        cursor: pointer;
+      }
+
+      header .header-text {
+        margin: 0 auto;
+      }
+
+      footer {
+        margin: 40px 0 0;
+      }
+
+      footer a {
+        font-size: .5em;
+      }
+
+      ol {
+        display: inline-block;
+      }
+
+      li {
+        padding-left: 10px;
+        font-size: .8em;
+      }
+
+      button.delete-todo {
+        cursor: pointer;
+      }
+    </style>
+
+    <script type="module" src="./components/header/header.jsx" data-gwd-opt="static"></script>
+    <script type="module" src="./components/footer/footer.jsx" data-gwd-opt="static"></script>
+    <script type="module" src="./components/todo-list/todo-list.jsx"></script>
   </head>
 
   <body>
-
-    <x-app></x-app>
-    
+    <main>
+      
+      <wcc-header></wcc-header>
+      <wcc-todo-list></wcc-todo-list>
+      <wcc-footer></wcc-footer>
+      
+    </main>
   </body>
 
 </html>

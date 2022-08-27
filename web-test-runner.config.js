@@ -1,10 +1,10 @@
 import { defaultReporter } from '@web/test-runner';
-import { greenwoodPluginImportCss } from '@greenwood/plugin-import-css/src/index.js';
+import { greenwoodPluginImportJsx } from './greenwood-plugin-import-jsx.js';
 import { junitReporter } from '@web/test-runner-junit-reporter';
 import path from 'path';
 
-// create a direct instance of ImportCssResource
-const importCssResource = greenwoodPluginImportCss()[0].provider({});
+// create a direct instance of ImportJsxResource
+const importJsxResource = greenwoodPluginImportJsx()[0].provider({});
 
 export default {
   files: './src/**/*.spec.js',
@@ -20,14 +20,14 @@ export default {
     reportDir: './reports'
   },
   plugins: [{
-    name: 'import-css',
+    name: 'import-jsx',
     async transform(context) {
-      const url = context.request.url.replace(/\?type=(.*)/, '');
-      const shouldIntercept = await importCssResource.shouldIntercept(url, context.body, { request: context.headers });
+      const { url } = context.request;
+      const shouldServe = await importJsxResource.shouldServe(url);
 
-      if (shouldIntercept) {
-        const cssResource = await importCssResource.intercept(url, context.body);
-        const { body, contentType } = cssResource;
+      if (shouldServe) {
+        const jsxResource = await importJsxResource.serve(path.join(process.cwd(), url));
+        const { body, contentType } = jsxResource;
 
         return {
           body,

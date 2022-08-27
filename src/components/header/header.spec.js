@@ -1,15 +1,14 @@
 import { expect } from '@esm-bundle/chai';
-import './header.js';
+import './header.jsx';
 
-describe('Header Component', () => {
+describe('Components/Header', () => {
   let header;
 
   beforeEach(async () => {
-    header = document.createElement('x-header');
+    header = document.createElement('wcc-header');
 
     document.body.appendChild(header);
 
-    // this is what makes the magic happen ✨
     await header.updateComplete;
   });
 
@@ -21,7 +20,7 @@ describe('Header Component', () => {
   describe('Default Behavior', () => {
     
     it('should have a greeting', () => { 
-      const greeting = header.shadowRoot.querySelectorAll('header h2')[0];
+      const greeting = header.querySelectorAll('header h2')[0];
 
       expect(greeting.innerHTML).to.equal('Todo App Example');
     });

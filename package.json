@@ -2,7 +2,6 @@
   "name": "todo-app",
   "version": "1.0.0",
   "description": "Todo App example as an \"evergreen\" project",
-  "main": "src/index.js",
   "type": "module",
   "repository": "git@github.com:ProjectEvergreen/todo-app.git",
   "author": "Owen Buckley <owen@thegreenhouse.io>",
@@ -12,27 +11,24 @@
   },
   "scripts": {
     "clean": "rimraf ./public ./reports",
-    "build": "greenwood build",
+    "build": "node --experimental-loader ./node_modules/wc-compiler/src/jsx-loader.js ./node_modules/.bin/greenwood build",
     "develop": "greenwood develop",
-    "lint": "eslint \"*.{js,cjs}\" \"./src/**/*.js\"",
-    "serve": "npm run clean && greenwood serve",
+    "lint": "eslint \"*.{js,cjs}\" \"./src/**/*.{js,jsx}\"",
+    "serve": "npm run clean && node --experimental-loader ./node_modules/wc-compiler/src/jsx-loader.js ./node_modules/.bin/greenwood serve",
     "start": "npm run develop",
-    "test": "wtr",
+    "test": "node --experimental-loader ./node_modules/wc-compiler/src/jsx-loader.js ./node_modules/.bin/wtr",
     "test:tdd": "npm test -- --watch"
   },
-  "dependencies": {
-    "lit": "^2.1.1"
+  "overrides": {
+    "wc-compiler": "~0.6.0"
   },
   "devDependencies": {
     "@esm-bundle/chai": "^4.3.4",
     "@greenwood/cli": "^0.26.0",
-    "@greenwood/plugin-import-css": "^0.26.0",
-    "@greenwood/plugin-postcss": "^0.26.0",
     "@web/test-runner": "^0.13.13",
     "@web/test-runner-junit-reporter": "^0.4.4",
     "@web/test-runner-puppeteer": "^0.10.0",
     "eslint": "^8.20.0",
-    "postcss-nested": "^4.1.2",
     "rimraf": "^2.6.2"
   }
 }

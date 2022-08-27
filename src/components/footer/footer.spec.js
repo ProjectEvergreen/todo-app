@@ -1,15 +1,14 @@
 import { expect } from '@esm-bundle/chai';
-import './footer.js';
+import './footer.jsx';
 
-describe('Footer Component', () => {
+describe('Components/Footer', () => {
   let footer;
 
   beforeEach(async () => {
-    footer = document.createElement('x-footer');
+    footer = document.createElement('wcc-footer');
 
     document.body.appendChild(footer);
 
-    // this is what makes the magic happen ✨
     await footer.updateComplete;
   });
 
@@ -19,18 +18,18 @@ describe('Footer Component', () => {
   });
 
   describe('Default Behavior', () => {
-    let greeting;
+    let content;
     
     beforeEach(() => {
-      greeting = footer.shadowRoot.querySelectorAll('footer a')[0];
+      content = footer.querySelectorAll('footer a')[0];
     });
 
     it('should have a link to the project that displays the project name', () => {
-      expect(greeting.innerHTML).to.equal('Project Evergreen');
+      expect(content.textContent).to.equal('Project Evergreen');
     });
 
     it('should have a link to the project with the project name', () => {
-      expect(greeting.href).to.equal('https://projectevergreen.github.io/');
+      expect(content.href).to.equal('https://projectevergreen.github.io/');
     });
   });
 
