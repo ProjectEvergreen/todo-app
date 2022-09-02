@@ -10,10 +10,6 @@ export default class BadgeComponent extends HTMLElement {
     this.render();
   }
 
-  static get observedAttributes () {
-    return ['count', 'predicate'];
-  }
-
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue !== oldValue) {
       if (name === 'count') {

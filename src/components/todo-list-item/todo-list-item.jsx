@@ -5,11 +5,7 @@ class TodoListItem extends HTMLElement {
     this.todo = {};
   }
 
-  // TODO would be nice to get this boilerplate reactivity from WCC
-  static get observedAttributes () {
-    return ['todo'];
-  }
-
+  // TODO would be nice to get this boilerplate observability from WCC
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue !== oldValue) {
       if (name === 'todo') {
